@@ -38,13 +38,28 @@ app.get('/switch/:pin', function (req, res) {
 
   })
 });
-app.get('/status/:val', function (req, res) {
 
-  res.json({online:true})
+app.get('/switch/:pin/on', function (req, res) {
+
+  G.on(req.params.pin).then(function(a){
+    res.json({ok:true})
+  }).catch(function(err){
+    res.json({error:err})
+
+
+  })
 });
-app.get('/switch/:val', function (req, res) {
-  res.json({online:true})
+app.get('/switch/:pin/off', function (req, res) {
+
+  G.off(req.params.pin).then(function(a){
+    res.json({ok:true})
+  }).catch(function(err){
+    res.json({error:err})
+
+
+  })
 });
+
 
 
 server.listen(conf.port,'0.0.0.0');
