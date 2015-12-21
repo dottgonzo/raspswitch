@@ -13,45 +13,38 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 var GPIOsw=require('gpio-switcher');
-if(conf.gpioswitch){
-  var G=new GPIOsw()
-  G.set(conf.gpioswitch).then(function(a){
+if(!conf.gpioswitch){
+  throw Error('no conf')
+}
+
+var G=new GPIOsw()
+G.load(conf.gpioswitch).then(function(a){
+  console.log('pin loaded')
+}).catch(functon(err){
+  throw Error(err)
+})
 
 
-    app.get('/', function (req, res) {
-      res.json({online:true})
-    });
-    app.get('/switch', function (req, res) {
+app.get('/', function (req, res) {
+  res.json({online:true})
+});
+app.get('/switch/:pin', function (req, res) {
 
-      G.switch(conf.gpioswitch.pin).then(function(a){
-        res.json({ok:true})
-      }).catch(function(err){
-        res.json({error:err})
-
-
-      })
-    });
-    app.get('/status/:val', function (req, res) {
-
-
-
-      
-      res.json({online:true})
-    });
-    app.get('/switch/:val', function (req, res) {
-      res.json({online:true})
-    });
-
-
-    server.listen(conf.port,'0.0.0.0');
-
-
-
+  G.switch(req.params.pin).then(function(a){
+    res.json({ok:true})
   }).catch(function(err){
-    throw Error(err)
+    res.json({error:err})
 
 
   })
-} else{
-  throw 'no conf'
-}
+});
+app.get('/status/:val', function (req, res) {
+
+  res.json({online:true})
+});
+app.get('/switch/:val', function (req, res) {
+  res.json({online:true})
+});
+
+
+server.listen(conf.port,'0.0.0.0');
