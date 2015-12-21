@@ -20,7 +20,7 @@ if(!conf.gpioswitch){
 var G=new GPIOsw()
 G.load(conf.gpioswitch).then(function(a){
   console.log('pin loaded')
-}).catch(functon(err){
+}).catch(function(err){
   throw Error(err)
 })
 
