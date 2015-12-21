@@ -31,7 +31,7 @@ app.get('/', function (req, res) {
 app.get('/switches/:pin', function (req, res) {
 
   G.switch(req.params.pin).then(function(a){
-    res.json({ok:true})
+    res.json(a)
   }).catch(function(err){
     res.json({error:err})
 
@@ -44,7 +44,7 @@ if(conf.gpioswitch.length==1){
   app.get('/switch', function (req, res) {
 
     G.switch(pin).then(function(a){
-      res.json({ok:true})
+      res.json(a)
     }).catch(function(err){
       res.json({error:err})
 
@@ -55,7 +55,7 @@ if(conf.gpioswitch.length==1){
   app.get('/switch/on', function (req, res) {
 
     G.on(pin).then(function(a){
-      res.json({ok:true})
+      res.json(a)
     }).catch(function(err){
       res.json({error:err})
 
@@ -65,7 +65,7 @@ if(conf.gpioswitch.length==1){
   app.get('/switch/off', function (req, res) {
 
     G.off(pin).then(function(a){
-      res.json({ok:true})
+      res.json(a)
     }).catch(function(err){
       res.json({error:err})
 
@@ -80,7 +80,7 @@ if(conf.gpioswitch.length==1){
 app.get('/switches/:pin/on', function (req, res) {
 
   G.on(req.params.pin).then(function(a){
-    res.json({ok:true})
+    res.json(a)
   }).catch(function(err){
     res.json({error:err})
 
@@ -90,7 +90,7 @@ app.get('/switches/:pin/on', function (req, res) {
 app.get('/switches/:pin/off', function (req, res) {
 
   G.off(req.params.pin).then(function(a){
-    res.json({ok:true})
+    res.json(a)
   }).catch(function(err){
     res.json({error:err})
 
